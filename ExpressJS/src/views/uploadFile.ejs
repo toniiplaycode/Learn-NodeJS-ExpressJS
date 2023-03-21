@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJS AskIT</title> 
+    <link rel="stylesheet" href="/css/style.css"> <!-- nhúng đường dẫn bắt đầu từ folder CSS, bên file viewEngine.js nó đã có đường dẫn từ ./src/public rồi, nên trong file index.ejs này mình chỉ dẫn thêm đường dẫn /css/style.css là đủ (ráp lại là ./src/public/css/style.css)-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div class="app">
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/upload" class="active">Upload Files</a>
+        </div>
+        
+        <div class="upload-file-container"> <!-- 2 cái form dưới là copy code của trang stackabuse và có tinh chỉnh 1 chút theo ý mình -->
+            <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data">  <!-- action được xử lý bên file web.js -->
+                <div>
+                    <label>Upload single file:</label>
+                    <input type="file" name="profile_pic" />
+                </div>
+                <div>
+                    <button type="submit">UPLOAD</button>
+                </div>
+            </form>
+
+            <div>
+                <hr>
+            </div>
+
+            <form method="POST" action="/upload-multiple-images" enctype="multipart/form-data">
+                <div>
+                    <label>Upload multiple files:</label>
+                    <input type="file" name="multiple_images" multiple />  <!-- thêm thuộc tính multuple trong thẻ input để có thể chọn được nhiều file -->
+                </div>
+                <div>
+                    <button type="submit">UPLOAD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Update User</title>
+</head>
+<body>
+    <div class="update-user-container">
+        <form action="/update-user" method="POST"> <!-- action được xử lý bên file web.js -->
+            <h3>Update a user</h3>
+            <input type="text" hidden name="id" value="<%=dataUser.id%>">
+            <div>
+                <label>First name:</label>
+                <input type="text" name="firstName" value="<%=dataUser.firstName%>">
+            </div>
+            <div>
+                <label>Last name:</label>
+                <input type="text" name="lastName"  value="<%=dataUser.lastName%>">
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name="email" value="<%=dataUser.email%>">
+            </div>
+            <div>
+                <label>Address:</label>
+                <input type="text" name="address" value="<%=dataUser.address%>">
+            <div>
+                <button class="btn-save" type="submit">Save</button>
+            </div>
+        </form>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,66 @@
+- file package.jon được hiểu như là 1 file để khai báo
+- ctrl + c: để stop server
+- file package-lock.json khi mỗi lần file package.jon thay đổi thì package-lock.json sẽ cập nhật theo, file package-lock.jon là file chi tiết của file package.jon, ví dụ mình chỉ cài express framework bên file package.jon nhưng bên file package-lock.jon sẽ phải cài thêm các dependencies(phụ thuộc) cho express framework
+- npm init: khởi tạo, tạo file package.json
+- npm i : tải file package.json
+- npm i <package>: tải package(thư viện, framework)
+- npm install(i) express: cài đặt framework express
+    + framework express: dùng để xử lý các yêu từ HTTP, định tuyến (routing), Mô hình MVC, midleware, xử lý lỗi, đọc/ghi dữ liệu của Database,...
+- node <tên file>: chạy code (hơi bất tiện là phải chạy lại khi code thay đổi)
+- --save-<tên dependencies muốn đặt>
+- npm i nodemom --save-dev: dùng nodemom để theo dõi sự thay đổi của code, không cần phải dùng node <tên file> lại nhiều lần để chạy code và thêm "start": "nodemon index.js" ở "scripts" trong file package.json. Thêm --inspect để có thể debug "start": "nodemon --inspect index.js"
+- npm i morgan --save-dev: dùng để quan sát các request từ client lên server
+- template engine: dùng để render giao diện, có sử dụng biến trong HTML, xử lý các điều kiện logic trong file HTML
+- npm i ejs: cài EJS template engine, có vài cái template engine phổ biến là EJS, handleBars, Pug,....
+- cấu trúc lại folder và file để dễ cấu hình, tạo folder src, trong folder src có 2 folder là configs và views. Folder config chứa các file để cấu hình hệ thống, trình compiler để dịch code JS. Folder views chứa file HTML
+- npm i --save-dev body-parser: là một middleware(phần mềm trung gian), dùng dể phân tích và xử lý các request HTTP, dữ liệu dạng JSON, url-encoded, dữ liệu text,...
+- npm i --save-dev @babel/core @babel/node @babel/preset-env: cài 3 package để trình compiler babel giúp chạy được các phiên bản JS cũ và mới đều tương thích   
+- tạo file .babelrc để config cho compiler babel (lên trang medium xem và làm theo) và bên file package.json() chỉnh "start": "nodemon --exec babel-node server.js" để chạy được compiler babel
+- cấu hình view engine trong file viewEngine.js và file HTML có đuôi là .html đổi thành .ejs
+- các biến tham số cấu hình thì sẽ được để trong file môi trường (tạo file .env), các tham số trong file .env được viết in. Muốn dùng tham số ở file khác thì dùng câu lệnh process.env.<tên tham số> và bắt buộc phải cài package dotenv mới dùng được câu lệnh đó
+- npm i dotenv: package dotenv để có thể sử dụng câu lệnh process.env.<tên tham số>
+- static file được sử dụng để hiển thị các file CSS, hình ảnh, video, âm thanh, file JS lên trang web
+- tạo folder pulic trong folder src để chứa các static file 
+- mô hình MVC gồm phần tách biệt: model, view, controller (lên trang vietnix để đọc chi tiết)
+    + model: đại diện cho dữ liệu, Database chẳng hạng
+    + view: giao diện người dùng, những thứ mà người dùng có thể thấy được 
+    + controller: nhận và xử lý các request của người dùng và để tương tác với model và view    
+- router được sử dụng để xác định các đường dẫn (routes) và điều hướng các yêu cầu của người dùng đến các xử lý tương ứng
+- tạo folder controller, tạo folder services tượng trưng cho model, tạo folder route và trong folder route tạo file web.js dùng để tách các routes ra 1 file chung
+- vì theo mô hình MVC nên tạo thêm file homController trong folder controller vì mỗi lần request được gửi lên server không chỉ đơn giản là render ra view mà nó còn xử lý logic, kết nối DB,...
+- HTTP request method: GET/POST/PUT/DELETE
+- npm i mysql2: cài thư viện mysql2 
+- tạo DB trên phpMyAdmin và tạo bảng users, tạo file connectDB.js trong folder config để kết nối với DB
+- copy template HTML CSS navigation W3School cho file index.ejs và style.css và render users ra html bằng table
+- dùng pool để kết nối với DB thay cho connection để tối ưu hoá hơn, cả 2 đều để kết nối với DB. nếu ứng dụng cần nhiều kết nối đến cơ sở dữ liệu, thì createPool là phương thức tốt hơn để sử dụng. Nếu ứng dụng chỉ cần một kết nối duy nhất, thì createConnection có thể là lựa chọn phù hợp hơn.
+    + createConnection: là khi mỗi lần kết nối với DB sẽ tạo ra 1 kết nối mới và đóng kết nối khi sử dụng xong, đều này có thể gây 'overhead' (tiêu tốn tài nguyên) nếu cần nhiều kết nối DB. khi cần nhiều kết nối thì dùng createPool
+    + createPool: hiểu đơn giản là pool nó quản lý các kết nối, kết nối với DB xong thì nó sẽ không bị đóng kết nỗi, mà pool sẽ giữ lại kết nối đó cho lần kết nối DB tiếp theo
+- Route parameters: trên thanh URL có biến (tham số), dùng để chứa biến ID,... trên thanh URL để chuyển route (chuyển trang)
+- dùng dấu ? trong câu query để có thể sử dụng được biến (giá trị động, không hard code), các biến này được đặt trong [<biến>];
+- tạo form bên file index.ejs để thêm user, khi submit 1 form các value(data) của form sẽ được gửi lên thanh URL đó là cách bình thường hay dùng. Nhưng lần mình sẽ gửi value(data) trong phần body của request
+- thêm express.urlencoded(), express.json() trong file server.js dùng để hỗ trợ client gửi value(data) lên sever và lấy được value(data) vừa được gửi lên đó
+- HTML chỉ có 2 phương thức GET và POST trong thẻ form
+- API được sử dụng để cho phép các ứng dụng khác tương tác với dữ liệu được lưu trong cơ sở dữ liệu của mình. Ví dụ tạo 1 RESTfull API để cho phép các ứng dụng khác truy vấn và lấy dữ liệu từ cơ sở dữ liệu của mình thông qua các yêu cầu HTTP
+- RESTfull API là một kiểu thiết kế và cung cấp API cho các ứng dụng tương tác, giao tiếp với nhau thông qua các yêu cầu HTTP. RESTfull API sử dụng các phương thức HTTP: GET, POST, PUT, DELETE để truyền tải dữ liệu giữa client và server dưới dạng JSON (XML cũng có nhưng rất ít)
+- tạo file api.js trong folder route và APIController.js trong folder controller để viết API và dùng Postman để test API 
+- các status thường gặp: 
+    + 200 OK: thành công, thông tin yêu cầu đã được trả về thành công
+    + 201 Created: tài nguyên mới đã được tạo thành công
+    + 204 No Content: Yêu cầu đã được xử lý thành công và không có thông tin nào cần trả về.
+    + 400 Bad Request: Yêu cầu của khách hàng không hợp lệ hoặc không đủ thông tin để xử lý.
+    + 401 Unauthorized: Không được ủy quyền, yêu cầu cần có xác thực hoặc token hết hạn.
+    + 403 Forbidden: Không có quyền truy cập tài nguyên.
+    + 404 Not Found: Tài nguyên được yêu cầu không tồn tại trên máy chủ.
+    + 405 Method Not Allowed: Phương thức được yêu cầu không hợp lệ cho tài nguyên.
+    + 500 Internal Server Error: Lỗi nội bộ của máy chủ.
+- trong app Postman có 2 cách thường để truyền dữ liệu lên server là Body và Params, nếu truyền id để PUT hoặc DELETE, nếu dùng Body thì phải dùng key và value, còn nếu dùng Params thì chỉ cần /<id> trên thanh URL
+- upload files của ask IT: trong khoá NodeJS thì lưu tại server(local), trong khoá fullStack thì lưu trong DB 
+- tải package multer để upload files (npm i multer), multer là 1 middleware để xử lý upload files (định nghĩa có lưu trong folder NodeJS-Express trên chrome)
+- tạo file uploadFile.ejs trong folder views để có form up file lên 
+- upload files có 2 kiểu: single(up 1 file) / multiple(up nhiều file), copy code thư viện về dùng
+- tải package app-root-path (npm i app-root-path), thư viện này dùng để dẫn đường thư mục dễ hơn
+- Middleware là chức năng được sử dụng để xử lý các yêu cầu HTTP trước khi nó được gửi đến các route. Nó dùng để xử lý lỗi, định dạng dữ liệu, xác thực, xử lý request từ người dùng, xử lý response từ máy chủ, ghi log, trả về trang không tồn tại 404. Có 3 tham số trong hàm middleware: req, res, next
+    + app.use(function)
+    + app.get('/', function) // route
+      app.post('/', function) // route
+    --> 2 kiểu ndùg middleware
